@@ -1,0 +1,19 @@
+header {
+    background-color: rgb(54, 57, 59);
+    color: white;
+    text-align: center;
+}
+p {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.searchBar {
+    background-color: lightgray;
+    padding-bottom: 2%;
+}
+
+.futureForecast {
+    background-color: lightgreen;
+}
+
