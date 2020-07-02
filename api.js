@@ -1,4 +1,6 @@
-$("#findCity").on("click", function(event){
+$(document).ready(function() {
+    
+    $("#findCity").on("click", function(event){
     event.preventDefault();
 
     var searchBox = $(".searchBox").val();
@@ -17,6 +19,8 @@ $.ajax({
     console.log(queryURL);
 
     console.log(response);
+})
+
 })
 
 })
