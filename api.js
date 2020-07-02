@@ -1,6 +1,6 @@
 $(document).ready(function() {
     
-    $("#findCity").on("click", function(event){
+    $(".findCity").on("click", function(event){
     event.preventDefault();
 
     var searchBox = $(".searchBox").val();
@@ -8,7 +8,7 @@ $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
 
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + searchBox + ",us&appid=" + APIKey;
-
+console.log("this works")
 
 
 $.ajax({
@@ -17,6 +17,7 @@ $.ajax({
 })
 .then(function(response){
     console.log(queryURL);
+    console.log(response);
 
     $(".todayForecast").text(JSON.stringify(response));
 })
