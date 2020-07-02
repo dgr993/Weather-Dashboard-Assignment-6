@@ -18,7 +18,7 @@ $.ajax({
 .then(function(response){
     console.log(queryURL);
 
-    console.log(response);
+    $(".todayForecast").text(JSON.stringify(response));
 })
 
 })
