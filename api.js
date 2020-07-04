@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
-    
+    var itemsArray = [];
+
     $(".findCity").on("click", function(event){
     event.preventDefault();
     var searchBox = $(".searchBox").val();
