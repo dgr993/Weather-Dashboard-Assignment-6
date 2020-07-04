@@ -107,7 +107,7 @@ $.ajax({
             $(".todayForecast .uvIndex").css("background-color", "green");
         }
         else if (uvColor > 5){
-           uvColor.css("background-color", "red");
+            $(".todayForecast .uvIndex").css("background-color", "red");
         }
         else {
             $(".todayForecast .uvIndex").css("background-color", "yellow");
