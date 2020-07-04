@@ -1,16 +1,27 @@
 $(document).ready(function() {
+    var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
     
     $(".findCity").on("click", function(event){
     event.preventDefault();
-
     var searchBox = $(".searchBox").val();
+    fiveDay(searchBox);
+    today(searchBox);
 
-    var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
+    var newCity=$("<button>")
+    newCity.attr("class", "btn btn-secondary col-12")
+    newCity.text(searchBox)
+    $(".searchHistory").append(newCity)
+});
+$(".searchHistory").on("click", function(event){
+   var cityToSearch =event.target.textContent
+    today(cityToSearch)
+    fiveDay(cityToSearch)
+})
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + searchBox + ",us&appid=" + APIKey;
 
 
-
+function fiveDay(city) {
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
 $.ajax({
     url:queryURL,
     method: "GET"
@@ -20,11 +31,11 @@ $.ajax({
     console.log(response);
 
     //info for first day of the 5 day forecast
-    $(".firstDay .date").text(response.list[0].dt_txt.split(" ")[0]);
-    $(".firstDay .weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png");
-    var tempF = (response.list[0].main.temp- 273.15) * 1.80 + 32;
+    $(".firstDay .date").text(response.list[4].dt_txt.split(" ")[0]);
+    $(".firstDay .weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + response.list[4].weather[0].icon + ".png");
+    var tempF = (response.list[4].main.temp- 273.15) * 1.80 + 32;
     $(".firstDay .temp").text("Temp: " + tempF.toFixed(0));
-    $(".firstDay .humidity").text("Humidity: " + response.list[0].main.humidity);
+    $(".firstDay .humidity").text("Humidity: " + response.list[4].main.humidity);
 
     //info for second day of the 5 day forecast
     $(".secondDay .date").text(response.list[9].dt_txt.split(" ")[0]);
@@ -56,8 +67,44 @@ $.ajax({
 
 
 });
+}
+
+function today(city) {
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + ",us&appid=" + APIKey;
+$.ajax({
+    url:queryURL,
+    method: "GET"
+})
+.then(function(response){
+    console.log(queryURL);
+    console.log(response);
+
+    //info for first day of the 5 day forecast
+    $(".todayForecast .cityName").text(response.name);
+    $(".todayForecast .date").text(moment().format('MMMM Do YYYY'));
+    $(".todayForecast .weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + ".png");
+    var tempF = (response.main.temp- 273.15) * 1.80 + 32;
+    $(".todayForecast .temp").text("Temp: " + tempF.toFixed(0));
+    $(".todayForecast .humidity").text("Humidity: " + response.main.humidity);
+    $(".todayForecast .windSpeed").text("Wind Speed: " + response.wind.speed);
+    
+    var lat = (response.coord.lat)
+    var lon = (response.coord.lon)
+
+
+    var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+    $.ajax({
+        url:queryURL2,
+        method: "GET"
+    })
+    .then(function(response2){
+        console.log(queryURL2);
+        console.log(response2);
+        $(".todayForecast .uvIndex").text("UV Index: " + response2.value);
+
+    });
 
 });
-
+}
 });
 
