@@ -101,6 +101,17 @@ $.ajax({
         console.log(queryURL2);
         console.log(response2);
         $(".todayForecast .uvIndex").text("UV Index: " + response2.value);
+        var uvColor = response2.value;
+        console.log(uvColor)
+        if (uvColor < 3){
+            $(".todayForecast .uvIndex").css("background-color", "green");
+        }
+        else if (uvColor > 5){
+           uvColor.css("background-color", "red");
+        }
+        else {
+            $(".todayForecast .uvIndex").css("background-color", "yellow");
+        }
 
     });
 
