@@ -7,15 +7,15 @@ $(document).ready(function() {
     fiveDay(searchBox);
     today(searchBox);
 
-    var newCity=$("<button>")
-    newCity.attr("class", "btn btn-secondary col-12")
-    newCity.text(searchBox)
-    $(".searchHistory").append(newCity)
+    var newCity=$("<button>");
+    newCity.attr("class", "btn btn-secondary col-12");
+    newCity.text(searchBox);
+    $(".searchHistory").append(newCity);
 });
 $(".searchHistory").on("click", function(event){
    var cityToSearch =event.target.textContent
-    today(cityToSearch)
-    fiveDay(cityToSearch)
+    today(cityToSearch);
+    fiveDay(cityToSearch);
 })
 
 
@@ -88,8 +88,8 @@ $.ajax({
     $(".todayForecast .humidity").text("Humidity: " + response.main.humidity);
     $(".todayForecast .windSpeed").text("Wind Speed: " + response.wind.speed);
     
-    var lat = (response.coord.lat)
-    var lon = (response.coord.lon)
+    var lat = (response.coord.lat);
+    var lon = (response.coord.lon);
 
 
     var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
@@ -102,7 +102,7 @@ $.ajax({
         console.log(response2);
         $(".todayForecast .uvIndex").text("UV Index: " + response2.value);
         var uvColor = response2.value;
-        console.log(uvColor)
+        console.log(uvColor);
         if (uvColor < 3){
             $(".todayForecast .uvIndex").css("background-color", "green");
         }
@@ -116,6 +116,6 @@ $.ajax({
     });
 
 });
-}
+};
 });
 
