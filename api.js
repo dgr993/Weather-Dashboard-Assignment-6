@@ -1,26 +1,16 @@
 $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
    
-    // ajax on load that search local storage on load but if empty dont execute
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
-    $.ajax({
-        url:queryURL,
-        method: "GET"
-    })
-    .then(function(response){
-            localStorage.getItem("city")
-            fiveDay("city");
-
-            var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + ",us&appid=" + APIKey;
-            $.ajax({
-                url:queryURL,
-                method: "GET"
-            })
-            .then(function(response){
-            today("city");
-            });
-    });
-
+    const previousCity = localStorage.getItem("city");
+// if localStorage.getItem("city") doesn't exist I believe it returns undefined, which is the same as false.
+if(previousCity){
+  // performs http request to API and renders today's forecast
+  today(previousCity);
+  // performs http request to API and renders 5 day forecast
+  fiveDay(previousCity);
+  
+}
+    
     $(".findCity").on("click", function(event){
     event.preventDefault();
     var searchBox = $(".searchBox").val();
@@ -42,6 +32,9 @@ $(".searchHistory").on("click", function(event){
     today(cityToSearch);
     fiveDay(cityToSearch);
 })
+
+// ajax on load that search local storage on load but if empty dont execute
+
 
 function fiveDay(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
