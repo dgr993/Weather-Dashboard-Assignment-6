@@ -2,9 +2,25 @@ $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
    
     // ajax on load that search local storage on load but if empty dont execute
-localStorage.getItem("city")
-today("city");
-fiveDay("city");
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
+    $.ajax({
+        url:queryURL,
+        method: "GET"
+    })
+    .then(function(response){
+            localStorage.getItem("city")
+            fiveDay("city");
+
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "q=" + city + ",us&appid=" + APIKey;
+            $.ajax({
+                url:queryURL,
+                method: "GET"
+            })
+            .then(function(response){
+            today("city");
+            });
+    });
+
     $(".findCity").on("click", function(event){
     event.preventDefault();
     var searchBox = $(".searchBox").val();
