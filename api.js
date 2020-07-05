@@ -1,14 +1,11 @@
 $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
    
+    //loads the most recent search when the page refreshes or nothing if local storage empty
     const previousCity = localStorage.getItem("city");
-// if localStorage.getItem("city") doesn't exist I believe it returns undefined, which is the same as false.
-if(previousCity){
-  // performs http request to API and renders today's forecast
-  today(previousCity);
-  // performs http request to API and renders 5 day forecast
-  fiveDay(previousCity);
-  
+    if(previousCity){
+    today(previousCity);
+    fiveDay(previousCity);
 }
     
     $(".findCity").on("click", function(event){
@@ -32,9 +29,6 @@ $(".searchHistory").on("click", function(event){
     today(cityToSearch);
     fiveDay(cityToSearch);
 })
-
-// ajax on load that search local storage on load but if empty dont execute
-
 
 function fiveDay(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
