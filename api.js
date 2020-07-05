@@ -1,25 +1,31 @@
 $(document).ready(function() {
     var APIKey = "cc3b19a5e219530ad82c36718f50e8c7";
-    var itemsArray = [];
-
+   
+    // ajax on load that search local storage on load but if empty dont execute
+localStorage.getItem("city")
+today("city");
+fiveDay("city");
     $(".findCity").on("click", function(event){
     event.preventDefault();
     var searchBox = $(".searchBox").val();
     fiveDay(searchBox);
     today(searchBox);
 
+    
     var newCity=$("<button>");
     newCity.attr("class", "btn btn-secondary col-12");
     newCity.text(searchBox);
     $(".searchHistory").append(newCity);
-});
+
+    //how to push to local storage in an array
+    
+    localStorage.setItem("city",searchBox);
+})
 $(".searchHistory").on("click", function(event){
    var cityToSearch =event.target.textContent
     today(cityToSearch);
     fiveDay(cityToSearch);
 })
-
-
 
 function fiveDay(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" + "q=" + city + ",us&appid=" + APIKey;
